@@ -4,6 +4,9 @@ plugins {
 }
 apply plugin: 'maven-publish'
 
+sourceCompatibility = 11
+targetCompatibility = 11
+
 
 group 'org.newkayak'
 version '1.0.0'
