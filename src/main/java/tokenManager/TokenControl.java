@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -32,11 +33,11 @@ public final class TokenControl {
     }
 
     private String getSecretKey() {
-        Path path = Path.of(saltPath);
+        Path path = Paths.get(saltPath);
         String privateKey = null;
         try {
         if(!Files.exists(path)) privateKey =  this.readDefault();
-            privateKey = Files.readString(path);
+            privateKey = Files.readAllLines(path).stream().collect(Collectors.joining());
         } catch (IOException e) {
             e.printStackTrace();
             privateKey = this.readDefault();
