@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+apply plugin: 'maven-publish'
+
+
+group 'org.newkayak'
+version '1.0.0'
+
+repositories {
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId 'org.newkayak12'
+            artifactId 'Dependency-Token'
+            version '1.0.0'
+            from components.java
+        }
+    }
+}
+dependencies {
+//    implementation 'com.github.newkayak12:DependencyRepository:tokenControl-1.0.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+    implementation 'org.modelmapper:modelmapper:3.1.1'
+}
+
+//allprojects {
+//    repositories {
+//        maven {
+//            url "https://jitpack.io"
+//            credentials { username jp_cd4682boc3ljitf6ltk5t0b2e4 }
+//        }
+//    }
+//}
+
+
+test {
+    useJUnitPlatform()
+}
