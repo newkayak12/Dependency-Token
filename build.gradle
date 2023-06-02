@@ -22,13 +22,12 @@ publishing {
         maven(MavenPublication) {
             groupId 'org.newkayak12'
             artifactId 'Dependency-Token'
-            version '1.0.0'
+            version '1.0.1'
             from components.java
         }
     }
 }
 dependencies {
-//    implementation 'com.github.newkayak12:DependencyRepository:tokenControl-1.0.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
     implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
