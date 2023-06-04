@@ -80,10 +80,10 @@ public final class TokenControl {
                 .collect(Collectors.joining());
     }
 
-    public String encrypt(Map<String, Object> map) {
+    public <T> String encrypt(T target) {
         return String.format("%s%s", prefix, Jwts.builder()
                 .setHeaderParam(Header.TYPE, tokenName)
-                .setClaims(map)
+                .setClaims(mapper.map(target, HashMap.class))
                 .setIssuer(this.issuer)
                 .setIssuedAt(new Date())
                 .signWith(SignatureAlgorithm.HS512, this.getSecretKey()).compact()
@@ -94,7 +94,11 @@ public final class TokenControl {
         Map<String, Object> claims = null;
         if(!token.startsWith(prefix)) throw new TokenException(Reason.INVALID_TOKEN);
         String withoutBearer = token.replace(prefix, "");
-        claims = Jwts.parserBuilder().setSigningKey(getSecretKey()).build().parseClaimsJwt(withoutBearer).getBody();
+        claims = Jwts.parserBuilder()
+                .setSigningKey(getSecretKey())
+                .build()
+                .parseClaimsJws(withoutBearer)
+                .getBody();
         return mapper.map(claims, clazz);
     }
 }

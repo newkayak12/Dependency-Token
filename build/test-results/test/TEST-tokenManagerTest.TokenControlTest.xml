@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="tokenManagerTest.TokenControlTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-06-04T12:18:02" hostname="MacBook-Pro.local" time="0.151">
+  <properties/>
+  <testcase name="Encrypt" classname="tokenManagerTest.TokenControlTest" time="0.151"/>
+  <system-out><![CDATA[Bearer eyJ0eXAiOiJ0ZXN0IiwiYWxnIjoiSFM1MTIifQ.eyJhIjoxLCJiIjoyLCJpc3MiOiJ0ZXN0IiwiaWF0IjoxNjg1ODgxMDgyfQ.UDJfgerjkQeSQWm7036MnrSLz2Fu6hs5LCDtPX8zWBwgxPZx1Fo0m5oW75yv5o2Z4qGQ-5rruONmts1nEOWRJg
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
