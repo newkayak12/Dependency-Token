@@ -38,6 +38,13 @@ public final class TokenControl {
         try {
         if(!Files.exists(path)) privateKey =  this.readDefault();
             privateKey = Files.readAllLines(path).stream().collect(Collectors.joining());
+            String head = "-----BEGIN OPENSSH PRIVATE KEY-----";
+            String lf = "\n";
+            String tail = "-----END OPENSSH PRIVATE KEY-----";
+            privateKey = privateKey
+                    .replaceAll(head, "")
+                    .replaceAll(lf, "")
+                    .replaceAll(tail,"");
         } catch (IOException e) {
             e.printStackTrace();
             privateKey = this.readDefault();
@@ -47,26 +54,30 @@ public final class TokenControl {
         return  privateKey;
     }
     private String readDefault() {
-        Set<Character> upperCase = IntStream.rangeClosed(65, 90)
+        List<Character> upperCase = IntStream.rangeClosed(65, 90)
                                     .mapToObj(unicode -> (char) unicode)
-                                    .collect(Collectors.toSet());
-        Set<Character> lowerCase = IntStream.rangeClosed(97, 122)
+                                    .unordered()
+                                    .collect(Collectors.toList());
+        List<Character> lowerCase = IntStream.rangeClosed(97, 122)
                                     .mapToObj(unicode -> (char) unicode)
-                                    .collect(Collectors.toSet());
-        Set<Character> number = IntStream.rangeClosed(48, 57)
+                                    .unordered()
+                                    .collect(Collectors.toList());
+        List<Character> number = IntStream.rangeClosed(48, 57)
                                     .mapToObj(unicode -> (char) unicode)
-                                    .collect(Collectors.toSet());
+                                    .unordered()
+                                    .collect(Collectors.toList());
 
-        Set<Character> reference = new HashSet<>();
+        List<Character> reference = new ArrayList<>();
 
         reference.addAll(upperCase);
         reference.addAll(lowerCase);
         reference.addAll(number);
 
-        return reference.stream().map(String::valueOf).sorted((o1, o2) -> {
-            Random random = new Random();
-            return (random.nextInt(2) - 1);
-        }).collect(Collectors.joining());
+        Random random = new Random();
+        return  IntStream.rangeClosed(0, 2500)
+                .mapToObj( intValue -> reference.get(random.nextInt(reference.size() - 1)))
+                .map(String::valueOf)
+                .collect(Collectors.joining());
     }
 
     public String encrypt(Map<String, Object> map) {
