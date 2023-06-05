@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 
-public final class TokenControl {
+public class TokenControl {
     private final String prefix = "Bearer ";
     private final String saltPath;
     private final String tokenName;
